@@ -63,7 +63,7 @@ module Feedjira
           base.element :"#{itunes_xml_ns}:block", as: :_itunes_block
 
           base.element :"#{itunes_xml_ns}:image", as: :itunes_image_href, value: :href do |href|
-            Addressable::URI.parse(href.strip)
+            Addressable::URI.parse(href.strip) if href
           end
 
           base.element :"#{itunes_xml_ns}:duration", as: :itunes_duration do |d|
