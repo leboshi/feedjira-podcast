@@ -6,13 +6,13 @@ module Feedjira
         include FeedUtilities
 
         element :url do |url|
-          Addressable::URI.parse(url.strip)
+          UrlParser.parse url
         end
 
         element :title
 
         element :link do |link|
-          Addressable::URI.parse(link.strip)
+          UrlParser.parse link
         end
 
         element :width, &:to_f

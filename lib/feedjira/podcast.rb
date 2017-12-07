@@ -1,6 +1,7 @@
 require "feedjira"
 require "addressable/uri"
 
+require "feedjira/podcast/url_parser"
 require "feedjira/podcast/version"
 
 require "feedjira/podcast/item/guid"

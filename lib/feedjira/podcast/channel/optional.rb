@@ -95,7 +95,7 @@ module Feedjira
           base.element :generator
 
           base.element :docs do |docs|
-            Addressable::URI.parse(docs.strip)
+            UrlParser.parse docs
           end
 
           base.element :cloud, as: :_cloud, class: Cloud

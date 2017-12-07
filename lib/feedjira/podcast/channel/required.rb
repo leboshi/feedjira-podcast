@@ -4,7 +4,7 @@ module Feedjira
       module Required
         def self.included(base)
           base.element :link do |link|
-            Addressable::URI.parse(link.strip)
+            UrlParser.parse link
           end
 
           base.element :title

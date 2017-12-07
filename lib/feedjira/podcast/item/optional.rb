@@ -20,7 +20,7 @@ module Feedjira
           base.include(InstanceMethods)
 
           base.element :link do |link|
-            Addressable::URI.parse(link.strip)
+            UrlParser.parse link
           end
 
           base.element :author
@@ -28,11 +28,11 @@ module Feedjira
           base.elements :category
 
           base.element :comments do |comments|
-            Addressable::URI.parse(comments.strip)
+            UrlParser.parse comments
           end
 
           base.element :enclosure, as: :enclosure_url, value: :url do |url|
-            Addressable::URI.parse(url.strip)
+            UrlParser.parse url
           end
 
           base.element :enclosure, as: :enclosure_length, value: :length, &:to_f

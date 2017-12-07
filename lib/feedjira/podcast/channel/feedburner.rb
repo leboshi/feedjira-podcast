@@ -15,7 +15,7 @@ module Feedjira
           feedburner_xml_ns = "feedburner"
 
           base.element :"#{feedburner_xml_ns}:info", as: :feedburner_info_uri, value: :uri do |uri|
-            Addressable::URI.parse(uri.strip)
+            UrlParser.parse uri
           end
         end
       end
