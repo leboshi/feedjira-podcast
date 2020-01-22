@@ -17,6 +17,7 @@ module Feedjira
               :subtitle,
               :summary,
               :keywords,
+              :type
             ).new(
               itunes_author,
               itunes_block,
@@ -30,6 +31,7 @@ module Feedjira
               itunes_subtitle,
               itunes_summary,
               itunes_keywords,
+              itunes_type
             )
           end
 
@@ -65,6 +67,10 @@ module Feedjira
               _itunes_owner && _itunes_owner.name,
             )
           end
+
+          def itunes_type
+            @itunes_type ||= _itunes_type.to_s.strip.downcase == 'serial' ? 'serial' : 'episodic'
+          end
         end
 
         def self.included(base)
@@ -92,6 +98,8 @@ module Feedjira
           base.element :"#{itunes_xml_ns}:owner", as: :_itunes_owner, class: AppleOwner
           base.element :"#{itunes_xml_ns}:subtitle", as: :itunes_subtitle
           base.element :"#{itunes_xml_ns}:summary", as: :itunes_summary
+
+          base.element :"#{itunes_xml_ns}:type", as: :_itunes_type
 
           # Legacy support
 

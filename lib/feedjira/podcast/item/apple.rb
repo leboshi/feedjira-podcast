@@ -16,6 +16,9 @@ module Feedjira
               :subtitle,
               :summary,
               :keywords,
+              :episode,
+              :season,
+              :episode_type
             ).new(
               itunes_author,
               itunes_block,
@@ -28,6 +31,9 @@ module Feedjira
               itunes_subtitle,
               itunes_summary,
               itunes_keywords,
+              itunes_episode,
+              itunes_season,
+              itunes_episode_type
             )
           end
 
@@ -51,6 +57,14 @@ module Feedjira
 
           def itunes_clean
             @itunes_clean ||= ["no", "clean", "false"].include?(_itunes_explicit)
+          end
+
+          def itunes_episode_type
+            @itunes_episode_type ||=
+                begin
+                  (%w[full trailer bonus] & [_itunes_episode_type.to_s.strip.downcase]).first ||
+                      'full'
+                end
           end
         end
 
@@ -83,6 +97,9 @@ module Feedjira
           base.element :"#{itunes_xml_ns}:isClosedCaptioned", as: :_itunes_is_closed_captioned
 
           base.element :"#{itunes_xml_ns}:order", as: :itunes_order, &:to_f
+          base.element :"#{itunes_xml_ns}:season", as: :itunes_season, &:to_i
+          base.element :"#{itunes_xml_ns}:episode", as: :itunes_episode, &:to_i
+          base.element :"#{itunes_xml_ns}:episodeType", as: :_itunes_episode_type
 
           base.element :"#{itunes_xml_ns}:subtitle", as: :itunes_subtitle
           base.element :"#{itunes_xml_ns}:summary", as: :itunes_summary
